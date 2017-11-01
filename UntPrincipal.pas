@@ -14,7 +14,7 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
 
-  //Units Necessárias
+  //Units NecessÃ¡rias
   IniFiles,
   IdComponent,
   IdTCPConnection,
@@ -66,7 +66,7 @@ procedure TfrmPrincipal.Button1Click(Sender: TObject);
 begin
   if EnviarEmail(edtAssunto.Text, edtPara.Text, edtAnexo.Text, memCorpo.Lines)
   then ShowMessage('Enviado com sucesso!')
-  else ShowMessage('Não foi possível enviar o e-mail!');
+  else ShowMessage('NÃ£o foi possÃ­vel enviar o e-mail!');
 end;
 
 procedure TfrmPrincipal.Button2Click(Sender: TObject);
@@ -93,7 +93,7 @@ var
 begin
   try
     try
-      //Criação e leitura do arquivo INI com as configurações
+      //CriaÃ§Ã£o e leitura do arquivo INI com as configuraÃ§Ãµes
       IniFile                          := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Config.ini');
       sFrom                            := IniFile.ReadString('Email' , 'From'     , sFrom);
       sBccList                         := IniFile.ReadString('Email' , 'BccList'  , sBccList);
@@ -102,28 +102,28 @@ begin
       sUserName                        := IniFile.ReadString('Email' , 'UserName' , sUserName);
       sPassword                        := IniFile.ReadString('Email' , 'Password' , sPassword);
 
-      //Configura os parâmetros necessários para SSL
+      //Configura os parÃ¢metros necessÃ¡rios para SSL
       IdSSLIOHandlerSocket                   := TIdSSLIOHandlerSocketOpenSSL.Create(Self);
       IdSSLIOHandlerSocket.SSLOptions.Method := sslvSSLv23;
       IdSSLIOHandlerSocket.SSLOptions.Mode  := sslmClient;
 
-      //Variável referente a mensagem
+      //VariÃ¡vel referente a mensagem
       idMsg                            := TIdMessage.Create(Self);
       idMsg.CharSet                    := 'utf-8';
       idMsg.Encoding                   := meMIME;
-      idMsg.From.Name                  := 'Portal Embarcadero ';
+      idMsg.From.Name                  := 'TESTE';
       idMsg.From.Address               := sFrom;
       idMsg.Priority                   := mpNormal;
       idMsg.Subject                    := AAssunto;
 
-      //Add Destinatário(s)
+      //Add DestinatÃ¡rio(s)
       idMsg.Recipients.Add;
       idMsg.Recipients.EMailAddresses := ADestino;
-      idMsg.CCList.EMailAddresses      := 'tdevrocks@tdevrocks.com.br';
+      idMsg.CCList.EMailAddresses      := 'teste@teste.com.br';
       idMsg.BccList.EMailAddresses    := sBccList;
-      idMsg.BccList.EMailAddresses    := 'tdevrocks@tdevrocks.com.br'; //Cópia Oculta
+      idMsg.BccList.EMailAddresses    := 'teste@teste.com.br'; //CÃ³pia Oculta
 
-      //Variável do texto
+      //VariÃ¡vel do texto
       idText := TIdText.Create(idMsg.MessageParts);
       idText.Body.Add(ACorpo.Text);
       idText.ContentType := 'text/html; text/plain; charset=iso-8859-1';
@@ -147,7 +147,7 @@ begin
         if FileExists(AAnexo) then
           TIdAttachmentFile.Create(idMsg.MessageParts, AAnexo);
 
-      //Se a conexão foi bem sucedida, envia a mensagem
+      //Se a conexÃ£o foi bem sucedida, envia a mensagem
       if idSMTP.Connected then
       begin
         try
